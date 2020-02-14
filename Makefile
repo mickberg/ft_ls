@@ -6,7 +6,7 @@
 #    By: mberglun <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/02 17:10:30 by mberglun          #+#    #+#              #
-#    Updated: 2020/02/07 12:07:39 by mikaelber        ###   ########.fr        #
+#    Updated: 2020/02/14 18:39:55 by mberglun         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,11 +37,11 @@ $(LIBFT):
 	@make -C $(LIB_DIR)
 
 $(NAME): $(OBJS) $(LIBFT) $(INCS)
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -I $(INC_DIR) -I $(LIB_DIR) -L$(LIB_DIR) -lft
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -I $(INC_DIR) -I $(LIB_DIR) -I $(LIB_DIR)/includes -L$(LIB_DIR) -lft
 
 $(OBJS): $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) -c $< -o $@ -I $(INC_DIR) -I $(LIB_DIR)
+	@$(CC) $(CFLAGS) -c $< -o $@ -I $(INC_DIR) -I $(LIB_DIR) -I $(LIB_DIR)/includes
 
 clean:
 	@rm -rf $(OBJ_DIR)

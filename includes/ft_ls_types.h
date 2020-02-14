@@ -6,7 +6,7 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 20:44:26 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/02/14 15:06:25 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/02/14 19:52:15 by mberglun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 /* ** typedef structs for cleaner code */
 typedef struct s_ditem	t_ditem;
+typedef struct dirent	t_dent;
 
 /* ** Typedef of native types for cleaner code */
 typedef unsigned char	t_uint8;
@@ -27,6 +28,8 @@ typedef unsigned short	t_uint16;
 # define OFLAG_LLONG	0x04
 # define OFLAG_REVERSE	0x08
 # define OFLAG_SORTT	0x08
+/* ** internal flag */
+# define OFLAG_MULTIPLE	0x10
 
 /*
 ** directory structure, combines dirent and lstat properties.
