@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.h                                            :+:      :+:    :+:   */
+/*   list_dir.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/07 11:48:29 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/02/14 15:07:10 by mikaelber        ###   ########.fr       */
+/*   Created: 2020/02/07 12:01:13 by mikaelber         #+#    #+#             */
+/*   Updated: 2020/02/14 15:12:28 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_LS_H
-# define FT_LS_H
+# include "ft_ls.h"
 
-# include "ft_ls_types.h"
+void	list_dir(char *path, int opts)
+{
+	DIR				*dir;
+	struct dirent	*dp;
 
-# include "libft.h"
-# include <stdlib.h>
-# include <dirent.h>
+	dir = opendir(path);
 
-void	list_dir(char *path, int opts);
-
-#endif
+	while (( dp = readdir(dir)) != NULL)
+	{
+		if (!(opts & OFLAG_ALL) && dp->d_name[0] == '.')
+			continue;
+		ft_printf("%-10.*s", (int)dp->d_namlen, dp->d_name);
+	}
+	(void)closedir(dir);
+}

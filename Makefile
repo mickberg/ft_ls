@@ -6,7 +6,7 @@
 #    By: mberglun <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/02 17:10:30 by mberglun          #+#    #+#              #
-#    Updated: 2020/02/07 11:51:38 by mikaelber        ###   ########.fr        #
+#    Updated: 2020/02/07 12:07:39 by mikaelber        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,9 @@ OBJ_DIR = ./objs/
 INC_DIR = ./includes/
 LIB_DIR = ./libft/
 
-SRC_FILES = ft_ls.c
+SRC_FILES = \
+	ft_ls.c \
+	list_dir.c
 HDR_FILES = ft_ls.h
 
 LIBFT = $(LIB_DIR)libft.a
