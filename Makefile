@@ -6,7 +6,7 @@
 #    By: mberglun <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/02 17:10:30 by mberglun          #+#    #+#              #
-#    Updated: 2020/02/14 18:39:55 by mberglun         ###   ########.fr        #
+#    Updated: 2020/07/26 14:35:56 by mikaelber        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,14 @@ LIB_DIR = ./libft/
 
 SRC_FILES = \
 	ft_ls.c \
-	list_dir.c
-HDR_FILES = ft_ls.h
+	list_dir.c \
+	stat_dir.c \
+	utils/sorters.c \
+	utils/print.c \
+	utils/entries.c \
+	utils/common.c \
+	utils/db.c
+HDR_FILES = ft_ls.h ft_ls_types.h
 
 LIBFT = $(LIB_DIR)libft.a
 

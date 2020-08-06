@@ -6,12 +6,16 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 11:49:36 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/02/14 19:52:25 by mberglun         ###   ########.fr       */
+/*   Updated: 2020/07/26 15:45:11 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "ft_ls.h"
 
+/**
+ * Prints out first illegal option flag then usage with valid flags and exits
+ * OFLAGS defines all valid options, defined in ft_ls_types.h
+ */
 static void	print_usage_and_exit(char illegal_opt)
 {
 	ft_printf("ft_ls: illegal option -- %c\n", illegal_opt);
@@ -19,6 +23,13 @@ static void	print_usage_and_exit(char illegal_opt)
 	exit(1);
 }
 
+/**
+ * Parses option flags, compares any character after an argument which
+ * has a - char as its first char to the OFLAGS constant.
+ * Anything after the last option argument is considered a file path.
+ *
+ * Returns number of option arguments.
+ */
 static int	get_options(int	*dest, int argc, char **argv)
 {
 	int		ax;
@@ -45,47 +56,28 @@ static int	get_options(int	*dest, int argc, char **argv)
 	return (ax);
 }
 
-static void	presort_args(char **args, int argc, int opts)
-{
-	int		i;
-	int		j;
-	char	*tmp;
-
-	i = 0;
-	while (i < argc)
-	{
-		j = i;
-		while (j > 0 && ft_strcmp(args[j], args[j - 1]) < 0)
-		{
-			tmp = args[j - 1];
-			args[j - 1] = args[j];
-			args[j] = tmp;
-			--j;
-		}
-		++i;
-	}
-	i = 0;
-	ft_read_dir(args[i++], opts);
-	while (i < argc)
-	{
-		ft_printf("\n\n");
-		ft_read_dir(args[i++], opts);
-	}
-}
-
 int		main(int argc, char **argv)
 {
 	int		opts;
 	int		ax;
+	int		i;
+	char	**names;
 
 	ax = get_options(&opts, argc, argv);
-	if (ax == argc)
-		ft_read_dir(".", opts);
-	else
+	if (!(names = (char**)malloc(sizeof(char*) * (argc - ax) + 1)))
 	{
-		opts |= OFLAG_MULTIPLE;
-		presort_args(argv + ax, argc - ax, opts);
+		errno = ENOMEM;
+		ft_perror("");
+		return (0);
 	}
-	ft_printf("\n");
+	i = 0;
+	while (ax < argc)
+		names[i++] = ft_strdup(argv[ax++]);
+	names[i] = NULL;
+	if (i > 1)
+		opts |= OFLAG_MULTIPLE;
+
+	ft_get_entries("", names, opts);
+
 	return (0);
 }

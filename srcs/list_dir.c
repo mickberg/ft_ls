@@ -5,86 +5,90 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/07 12:01:13 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/02/14 19:52:51 by mberglun         ###   ########.fr       */
+/*   Created: 2020/07/15 18:10:30 by mikaelber         #+#    #+#             */
+/*   Updated: 2020/08/06 15:58:50 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static int	ft_compare_dentries(t_dent *d1, t_dent *d2)
+static t_entry	*ft_list_dir(char *path, int opts)
 {
-	char	s1[d1->d_namlen + 1];
-	char	s2[d2->d_namlen + 1];
+	DIR				*dir;
+	struct dirent	*dp;
+	t_entry			*tmp;
+	t_entry			*list;
+	char			*name;
 
-	s1[d1->d_namlen] = '\0';
-	s2[d2->d_namlen] = '\0';
-	ft_strncpy(s1, d1->d_name, d1->d_namlen);
-	ft_strncpy(s2, d2->d_name, d2->d_namlen);
-	return (ft_strcmp(s1, s2) * -1);
+	list = NULL;
+	if (!(dir = opendir(path)))
+	{
+		ft_perror(path);
+		return (NULL);
+	}
+	while ((dp = readdir(dir)) != NULL)
+	{
+		if (!ft_strncmp(dp->d_name, ".", 1) && !(opts & OFLAG_ALL))
+			continue;
+		name = ft_strnew(dp->d_namlen);
+		ft_strncat(name, dp->d_name, dp->d_namlen);
+		if (!(tmp = ft_make_entry(path, name)))
+			free(name);
+		list = ft_add_entry(list, tmp, opts);
+	}
+	closedir(dir);
+	return (list);
 }
 
-static void	ft_sort_dir(t_dent ***entries, int entry_count)
+static void		ft_read_dir(char *path, char *name, int opts)
 {
-	int		ix;
-	int		jx;
-	t_dent	*tmp;
+	char	cpath[(ft_strlen(path) + ft_strlen(name) + 2)];
+	t_entry	*tmp;
+	t_entry	*list;
 
-	ix = 1;
-	while (ix < entry_count)
+	ft_concat_path(cpath, path, name);
+	if (!(list = ft_list_dir(cpath, opts)))
+		return ;
+	ft_print_dir(list, opts);
+	while (list)
 	{
-		jx = ix;
-		while (jx > 0 &&
-				ft_compare_dentries((*entries)[jx - 1], (*entries)[jx]) < 0)
+		if (opts & OFLAG_REC && list->type =='d' && !list->relative)
 		{
-			tmp = (*entries)[jx - 1];
-			(*entries)[jx - 1] = (*entries)[jx];
-			(*entries)[jx] = tmp;
-			--jx;
+			printf("\n%s/%s:\n", cpath, list->name);
+			ft_read_dir(cpath, list->name, opts);
 		}
-		++ix;
+		tmp = list;
+		list = list->next;
+		free(tmp->name);
+		free(tmp);
 	}
 }
 
-static void	ft_list_dir(char *path, int entry_count, int opts)
+void			ft_get_entries(char *path, char **names, int opts)
 {
-	t_dent	**entries;
-	t_dent	*tmp;
-	DIR		*dir;
-	int		ex;
-	int		namelen;
+	t_entry		*tmp;
+	t_entry		*files;
+	t_entry		*dirs;
 
-	if (!(entries = (t_dent **)malloc(sizeof(t_dent *) * entry_count)))
-		return ;
-	dir = opendir(path);
-	ex = 0;
-	while ((tmp = readdir(dir)) != NULL)
-		if (opts & OFLAG_ALL || tmp->d_name[0] != '.')
-			entries[ex++] = tmp;
-	namelen = 0;
-	ex = 0;
-	while (ex < entry_count)
-		namelen = ft_max(namelen, entries[ex++]->d_namlen);
-	ft_sort_dir((t_dent ***)&entries, entry_count);
-	ex = 0;
-	while (ex < entry_count)
-		ft_printf("%-*.*s", namelen + 1, namelen, entries[ex++]->d_name);
-	(void)closedir(dir);
-}
-
-void		ft_read_dir(char *path, int opts)
-{
-	DIR		*dir;
-	t_dent	*dp;
-	int		entries;
-
-	if (opts & OFLAG_MULTIPLE)
-		ft_printf("%s:\n", path);
-	entries = 0;
-	dir = opendir(path);
-	while ((dp = readdir(dir)) != NULL)
-		if ((opts & OFLAG_ALL) || dp->d_name[0] != '.')
-			++entries;
-	(void)closedir(dir);
-	ft_list_dir(path, entries, opts);
+	files = dirs = NULL;
+	while (*names)
+	{
+		if (!(tmp = ft_make_entry(path, *(names++))))
+			continue;
+		if (tmp->type == 'd')
+			dirs = ft_add_entry(dirs, tmp, opts);
+		else
+			files = ft_add_entry(files, tmp, opts);
+	}
+	ft_print_entries(files, opts);
+	ft_del_entries(files);
+	while (dirs)
+	{
+		if (opts & OFLAG_MULTIPLE)
+			printf("%*s%s:%*s\n", !!files, "\n", dirs->name, !!dirs->next, "\n");
+		ft_read_dir(path, dirs->name, opts);
+		tmp = dirs;
+		dirs = dirs->next;
+		ft_del_entry(tmp);
+	}
 }

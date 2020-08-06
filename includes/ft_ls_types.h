@@ -6,16 +6,21 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 20:44:26 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/02/14 19:52:15 by mberglun         ###   ########.fr       */
+/*   Updated: 2020/07/26 15:14:23 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_LS_TYPES_H
 # define FT_LS_TYPES_H
 
+# include <time.h>
+# include <grp.h>
+# include <pwd.h>
+
 /* ** typedef structs for cleaner code */
-typedef struct s_ditem	t_ditem;
-typedef struct dirent	t_dent;
+typedef struct s_entry		t_entry;
+typedef struct s_lengths	t_lengths;
+typedef struct s_id			t_id;
 
 /* ** Typedef of native types for cleaner code */
 typedef unsigned char	t_uint8;
@@ -27,9 +32,53 @@ typedef unsigned short	t_uint16;
 # define OFLAG_ALL		0x02
 # define OFLAG_LLONG	0x04
 # define OFLAG_REVERSE	0x08
-# define OFLAG_SORTT	0x08
+# define OFLAG_SORTT	0x10
 /* ** internal flag */
-# define OFLAG_MULTIPLE	0x10
+# define OFLAG_MULTIPLE	0x20
+
+/*
+** Entry structure, holds necessary entry entry for all types.
+*/
+struct					s_entry
+{
+	char			*name;
+	char			*path;
+	long long		size;
+	unsigned short	type;
+	unsigned short	mflags;
+	uid_t			uid;
+	gid_t			gid;
+	char			*uname;
+	char			*gname;
+	unsigned short	nlink;
+	unsigned short	relative;
+	unsigned int	blocks;
+	time_t			time;
+	time_t			ntime;
+	struct s_entry	*next;
+};
+
+/**
+ * Keeps max lengts for entry properties.
+ */
+struct					s_lengths
+{
+	int	nlink;
+	int	uname;
+	int	gname;
+	int size;
+	int name;
+};
+
+/**
+ * Stores Group and Passwd id-name pairs
+ */
+struct					s_id
+{
+	unsigned int	id;
+	char			*name;
+	struct s_id		*next;
+};
 
 /*
 ** directory structure, combines dirent and lstat properties.
