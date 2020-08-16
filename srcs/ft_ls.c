@@ -6,7 +6,7 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 11:49:36 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/16 22:15:38 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/16 22:41:44 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	print_usage_and_exit(char illegal_opt)
  *
  * Returns number of option arguments.
  */
-static int	get_options(int	*dest, int argc, char **argv)
+static int	ft_get_options(int	*dest, int argc, char **argv)
 {
 	int		ax;
 	int		ix;
@@ -56,26 +56,42 @@ static int	get_options(int	*dest, int argc, char **argv)
 	return (ax);
 }
 
-int		main(int argc, char **argv)
+static char	**ft_get_names(char **argv, int argc, int *opts)
 {
-	int		opts;
-	int		ax;
-	int		i;
 	char	**names;
+	int		i;
 
-	ax = get_options(&opts, argc, argv);
-	if (!(names = (char**)malloc(sizeof(char*) * (argc - ax) + 1)))
+	if (!(names = (char**)malloc(sizeof(char*) * ft_max(1, argc + 1))))
 	{
 		errno = ENOMEM;
 		ft_perror("");
-		return (0);
+		return (NULL);
 	}
 	i = 0;
-	while (ax < argc)
-		names[i++] = ft_strdup(argv[ax++]);
+	if (!argc)
+		names[i++] = ft_strdup(".");
+	else
+	{
+		while (i < argc)
+		{
+			names[i] = ft_strdup(argv[i]);
+			++i;
+		}
+	}
 	names[i] = NULL;
 	if (i > 1)
-		opts |= OFLAG_MULTIPLE;
+		*opts |= OFLAG_MULTIPLE;
+	return (names);
+}
+
+int			main(int argc, char **argv)
+{
+	int		opts;
+	int		ax;
+	char	**names;
+
+	ax = ft_get_options(&opts, argc, argv);
+	names = ft_get_names(argv + ax, argc - ax, &opts);
 	ft_get_entries("", names, opts);
 	return (0);
 }
