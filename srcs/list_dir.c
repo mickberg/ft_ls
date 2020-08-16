@@ -6,7 +6,7 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 18:10:30 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/16 19:30:59 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/16 22:06:59 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void		ft_read_dir(char *path, char *name, int opts)
 	ft_print_dir(cpath, list, opts);
 	while (list)
 	{
-		if (opts & OFLAG_REC && list->type =='d' && !list->relative)
+		if (opts & OFLAG_REC && S_ISDIR(list->mflags) && !list->relative)
 		{
 			ft_printf("\n%s/%s:\n", cpath, list->name);
 			ft_read_dir(cpath, list->name, opts);
@@ -75,7 +75,7 @@ void			ft_get_entries(char *path, char **names, int opts)
 	{
 		if (!(tmp = ft_make_entry(path, *(names++))))
 			continue;
-		if (tmp->type == 'd')
+		if (S_ISDIR(tmp->mflags))
 			dirs = ft_add_entry(dirs, tmp, opts);
 		else
 			files = ft_add_entry(files, tmp, opts);

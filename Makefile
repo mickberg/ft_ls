@@ -6,7 +6,7 @@
 #    By: mberglun <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/02 17:10:30 by mberglun          #+#    #+#              #
-#    Updated: 2020/08/16 20:08:05 by mikaelber        ###   ########.fr        #
+#    Updated: 2020/08/16 22:24:20 by mikaelber        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,12 +22,10 @@ LIB_DIR = ./libft/
 SRC_FILES = \
 	ft_ls.c \
 	list_dir.c \
-	stat_dir.c \
-	utils/sorters.c \
-	utils/print.c \
-	utils/print_modes.c \
-	utils/print_long.c \
-	utils/print_col.c \
+	print/print.c \
+	print/print_modes.c \
+	print/print_long.c \
+	print/print_col.c \
 	utils/entries.c \
 	utils/common.c \
 	utils/db.c

@@ -6,7 +6,7 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 20:44:26 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/16 19:28:54 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/16 22:22:58 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,7 @@ typedef struct s_entry		t_entry;
 typedef struct s_lengths	t_lengths;
 typedef struct s_id			t_id;
 
-/* ** Typedef of native types for cleaner code */
-typedef unsigned char	t_uint8;
-typedef unsigned short	t_uint16;
-
-/** * six months ago */
+/** * six months ago in seconds */
 #define SIX_MA			15721200
 
 /* ** Option flags are parsed based on OFLAGS macro */
@@ -47,7 +43,6 @@ struct					s_entry
 {
 	char			*name;
 	long long		size;
-	unsigned short	type;
 	unsigned short	mflags;
 	uid_t			uid;
 	gid_t			gid;
@@ -58,7 +53,6 @@ struct					s_entry
 	unsigned short	relative;
 	unsigned int	blocks;
 	time_t			time;
-	time_t			ntime;
 	struct s_entry	*next;
 };
 
@@ -84,18 +78,6 @@ struct					s_id
 	unsigned int	id;
 	char			*name;
 	struct s_id		*next;
-};
-
-/*
-** directory structure, combines dirent and lstat properties.
-** Works as a linked list
-*/
-struct					s_ditem
-{
-	t_uint16		size;
-	t_uint8			nlen;
-	char			name[255 + 1];
-	struct s_ditem	*next;
 };
 
 #endif

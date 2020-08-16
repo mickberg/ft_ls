@@ -6,7 +6,7 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 11:48:29 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/16 20:09:09 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/16 22:23:50 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@
 void	ft_get_entries(char *path, char **names, int opts);
 void	ft_stat_dir(char *path, int opts);
 /** * Util functions */
-void	ft_string_sort(char **strings, int argc);
 void	ft_perror(char *str);
 void	ft_concat_path(char *cpath, char *path, char *name);
 /** * Entry list functions */

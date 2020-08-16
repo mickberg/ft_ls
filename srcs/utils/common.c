@@ -6,7 +6,7 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 18:17:30 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/07/25 13:06:03 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/16 22:26:11 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,3 @@ void		ft_concat_path(char *cpath, char *path, char *name)
 	}
 	ft_strcat(cpath, name);
 }
-
-

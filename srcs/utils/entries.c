@@ -6,32 +6,11 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 19:53:51 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/16 15:04:30 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/16 22:21:23 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-
-static char	ft_entry_type(int mflag)
-{
-	int masked;
-
-	masked = (mflag & S_IFMT);
-	if (S_ISDIR(masked))
-		return ('d');
-	else if (S_ISLNK(masked))
-		return ('l');
-	else if (S_ISBLK(masked))
-		return ('b');
-	else if (S_ISCHR(masked))
-		return ('c');
-	else if (S_ISSOCK(masked))
-		return ('s');
-	else if (S_ISFIFO(masked))
-		return ('p');
-	else
-		return ('-');
-}
 
 t_entry		*ft_create_entry(struct stat *stat, char *name)
 {
@@ -40,18 +19,16 @@ t_entry		*ft_create_entry(struct stat *stat, char *name)
 	if (!(entry = (t_entry*)malloc(sizeof(t_entry))))
 		return (NULL);
 	ft_memset(entry, 0, sizeof(t_entry));
+	entry->name = name;
+	entry->size = stat->st_size;
 	entry->mflags = stat->st_mode;
-	entry->nlink = stat->st_nlink;
-	entry->rdev = stat->st_rdev;
 	entry->uid = stat->st_uid;
 	entry->gid = stat->st_gid;
-	entry->size = stat->st_size;
+	entry->nlink = stat->st_nlink;
+	entry->rdev = stat->st_rdev;
+	entry->relative = (!ft_strncmp(name, ".", 2) || !ft_strncmp(name, "..", 3));
 	entry->blocks = stat->st_blocks;
 	entry->time = stat->st_mtimespec.tv_sec;
-	entry->ntime = stat->st_mtimespec.tv_nsec;
-	entry->name = name;
-	entry->type = ft_entry_type(stat->st_mode);
-	entry->relative = (!ft_strncmp(name, ".", 2) || !ft_strncmp(name, "..", 3));
 	entry->next = NULL;
 	return (entry);
 }

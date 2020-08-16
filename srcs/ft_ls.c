@@ -6,7 +6,7 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 11:49:36 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/16 21:51:30 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/16 22:15:38 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,6 @@ int		main(int argc, char **argv)
 	names[i] = NULL;
 	if (i > 1)
 		opts |= OFLAG_MULTIPLE;
-
 	ft_get_entries("", names, opts);
-
-	while (1);
-
 	return (0);
 }
