@@ -6,7 +6,7 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 20:44:26 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/07/26 15:14:23 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/16 15:52:05 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <time.h>
 # include <grp.h>
 # include <pwd.h>
+# include <sys/stat.h>
 
 /* ** typedef structs for cleaner code */
 typedef struct s_entry		t_entry;
@@ -25,6 +26,9 @@ typedef struct s_id			t_id;
 /* ** Typedef of native types for cleaner code */
 typedef unsigned char	t_uint8;
 typedef unsigned short	t_uint16;
+
+/** * six months ago */
+#define SIX_MA			15721200
 
 /* ** Option flags are parsed based on OFLAGS macro */
 # define OFLAGS			"Ralrt"
@@ -42,7 +46,6 @@ typedef unsigned short	t_uint16;
 struct					s_entry
 {
 	char			*name;
-	char			*path;
 	long long		size;
 	unsigned short	type;
 	unsigned short	mflags;
@@ -51,6 +54,7 @@ struct					s_entry
 	char			*uname;
 	char			*gname;
 	unsigned short	nlink;
+	dev_t			rdev;
 	unsigned short	relative;
 	unsigned int	blocks;
 	time_t			time;
@@ -67,6 +71,8 @@ struct					s_lengths
 	int	uname;
 	int	gname;
 	int size;
+	int minor;
+	int major;
 	int name;
 };
 

@@ -6,7 +6,7 @@
 #    By: mberglun <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/02 17:10:30 by mberglun          #+#    #+#              #
-#    Updated: 2020/07/26 14:35:56 by mikaelber        ###   ########.fr        #
+#    Updated: 2020/08/16 19:08:32 by mikaelber        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,8 @@ SRC_FILES = \
 	stat_dir.c \
 	utils/sorters.c \
 	utils/print.c \
+	utils/print_modes.c \
+	utils/print_long.c \
 	utils/entries.c \
 	utils/common.c \
 	utils/db.c

@@ -6,7 +6,7 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 11:48:29 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/06 16:01:00 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/16 19:07:19 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
 
 # include <stdio.h>
 # include <sys/types.h>
-# include <sys/stat.h>
 # include <sys/errno.h>
 # include <sys/xattr.h>
+# include <sys/acl.h>
 
 void	ft_get_entries(char *path, char **names, int opts);
 void	ft_stat_dir(char *path, int opts);
@@ -37,8 +37,11 @@ void	ft_concat_path(char *cpath, char *path, char *name);
 t_entry	*ft_make_entry(char *path, char *name);
 t_entry	*ft_create_entry(struct stat *stat, char *name);
 t_entry	*ft_add_entry(t_entry *list, t_entry *entry, int opts);
-void	ft_print_entries(t_entry *entries, int opts);
-void	ft_print_dir(t_entry *list, int opts);
+
+void	ft_print_modes(t_entry *entry, char *path);
+void	ft_print_long(t_entry *entries, t_lengths *lens, char *path, int opts);
+void	ft_print_entries(char *path, t_entry *entries, int opts);
+void	ft_print_dir(char *path, t_entry *list, int opts);
 void	ft_del_entry(t_entry *entry);
 void	ft_del_entries(t_entry *list);
 

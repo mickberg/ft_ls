@@ -6,7 +6,7 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 18:10:30 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/06 15:58:50 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/16 19:02:35 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ static void		ft_read_dir(char *path, char *name, int opts)
 	ft_concat_path(cpath, path, name);
 	if (!(list = ft_list_dir(cpath, opts)))
 		return ;
-	ft_print_dir(list, opts);
+	ft_print_dir(cpath, list, opts);
 	while (list)
 	{
 		if (opts & OFLAG_REC && list->type =='d' && !list->relative)
 		{
-			printf("\n%s/%s:\n", cpath, list->name);
+			ft_printf("\n%s/%s:\n", cpath, list->name);
 			ft_read_dir(cpath, list->name, opts);
 		}
 		tmp = list;
@@ -80,12 +80,15 @@ void			ft_get_entries(char *path, char **names, int opts)
 		else
 			files = ft_add_entry(files, tmp, opts);
 	}
-	ft_print_entries(files, opts);
-	ft_del_entries(files);
+	if (files)
+	{
+		ft_print_entries(path, files, opts);
+		ft_del_entries(files);
+	}
 	while (dirs)
 	{
 		if (opts & OFLAG_MULTIPLE)
-			printf("%*s%s:%*s\n", !!files, "\n", dirs->name, !!dirs->next, "\n");
+			ft_printf("%*s%s:%*s\n", !!files, "\n", dirs->name, !!dirs->next, "\n");
 		ft_read_dir(path, dirs->name, opts);
 		tmp = dirs;
 		dirs = dirs->next;

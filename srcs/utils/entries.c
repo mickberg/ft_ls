@@ -6,7 +6,7 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 19:53:51 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/06 17:35:51 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/16 15:04:30 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ t_entry		*ft_create_entry(struct stat *stat, char *name)
 	ft_memset(entry, 0, sizeof(t_entry));
 	entry->mflags = stat->st_mode;
 	entry->nlink = stat->st_nlink;
+	entry->rdev = stat->st_rdev;
 	entry->uid = stat->st_uid;
 	entry->gid = stat->st_gid;
 	entry->size = stat->st_size;
