@@ -6,7 +6,7 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 19:51:51 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/16 19:12:27 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/16 21:49:27 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,19 @@ static void	ft_get_lengths(t_lengths *lens, t_entry *list, int opts)
 void		ft_print_entries(char *path, t_entry *list, int opts)
 {
 	t_lengths	lens;
+	int			numof;
+	t_entry		*tmp;
 
 	ft_get_lengths(&lens, list, opts);
 	if (opts & OFLAG_LLONG)
 		ft_print_long(list, &lens, path, opts);
 	else
 	{
-		while (list)
-		{
-			ft_printf("%c %s\n", list->type, list->name);
-			list = list->next;
-		}
+		numof = 0;
+		tmp = list;
+		while(tmp && ++numof)
+			tmp = tmp->next;
+		ft_print_cols(list, &lens, numof, opts);
 	}
 }
 
@@ -69,7 +71,7 @@ void		ft_print_dir(char *path, t_entry *list, int opts)
 		blocks += tmp->blocks;
 		tmp = tmp->next;
 	}
-	if (list)
+	if (list && opts & OFLAG_LLONG)
 		ft_printf("total %lld\n", blocks);
 	ft_print_entries(path, list, opts);
 }

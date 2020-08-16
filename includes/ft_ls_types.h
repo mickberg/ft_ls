@@ -6,7 +6,7 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 20:44:26 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/16 15:52:05 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/16 19:28:54 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,10 @@ struct					s_lengths
 	int	nlink;
 	int	uname;
 	int	gname;
-	int size;
-	int minor;
-	int major;
-	int name;
+	int	size;
+	int	minor;
+	int	major;
+	int	name;
 };
 
 /**
