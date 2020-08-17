@@ -6,7 +6,7 @@
 #    By: mberglun <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/02 17:10:30 by mberglun          #+#    #+#              #
-#    Updated: 2020/08/16 22:24:20 by mikaelber        ###   ########.fr        #
+#    Updated: 2020/08/17 23:12:24 by mikaelber        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ SRC_FILES = \
 	utils/entries.c \
 	utils/common.c \
 	utils/db.c
-HDR_FILES = ft_ls.h ft_ls_types.h
+HDR_FILES = ft_ls.h
 
 LIBFT = $(LIB_DIR)libft.a
 
