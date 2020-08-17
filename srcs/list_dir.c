@@ -6,12 +6,15 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 18:10:30 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/16 22:06:59 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/18 00:36:59 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
+/*
+** Creates a list of entries from files in folder.
+*/
 static t_entry	*ft_list_dir(char *path, int opts)
 {
 	DIR				*dir;
@@ -34,12 +37,16 @@ static t_entry	*ft_list_dir(char *path, int opts)
 		ft_strncat(name, dp->d_name, dp->d_namlen);
 		if (!(tmp = ft_make_entry(path, name)))
 			free(name);
-		list = ft_add_entry(list, tmp, opts);
+		else
+			list = ft_add_entry(list, tmp, opts);
 	}
 	closedir(dir);
 	return (list);
 }
 
+/*
+** Recursively iterates through folders and prints their entries.
+*/
 static void		ft_read_dir(char *path, char *name, int opts)
 {
 	char	cpath[(ft_strlen(path) + ft_strlen(name) + 2)];
@@ -59,16 +66,19 @@ static void		ft_read_dir(char *path, char *name, int opts)
 		}
 		tmp = list;
 		list = list->next;
-		free(tmp->name);
-		free(tmp);
+		ft_del_entry(tmp);
 	}
 }
 
+/*
+** Entry function, separates files and folder arguments.
+** then passes the directories to the recursive ft_read_dir func.
+*/
 void			ft_get_entries(char *path, char **names, int opts)
 {
-	t_entry		*tmp;
-	t_entry		*files;
-	t_entry		*dirs;
+	t_entry	*tmp;
+	t_entry	*files;
+	t_entry	*dirs;
 
 	files = dirs = NULL;
 	while (*names)
@@ -80,18 +90,15 @@ void			ft_get_entries(char *path, char **names, int opts)
 		else
 			files = ft_add_entry(files, tmp, opts);
 	}
-	if (files)
-	{
-		ft_print_entries(path, files, opts);
-		ft_del_entries(files);
-	}
+	ft_print_entries(path, files, opts);
+	tmp = files;
 	while (dirs)
 	{
-		if (opts & OFLAG_MULTIPLE)
-			ft_printf("%*s%s:%*s", !!files, "\n", dirs->name, !!dirs->next, "\n");
+		ft_printf("%.*s", !!tmp, "\n");
 		ft_read_dir(path, dirs->name, opts);
 		tmp = dirs;
 		dirs = dirs->next;
-		ft_del_entry(tmp);
 	}
+	ft_del_entries(files);
+	ft_del_entries(dirs);
 }
