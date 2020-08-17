@@ -6,7 +6,7 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 18:17:30 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/17 23:24:41 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/18 02:34:39 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	ft_perror(char *str)
 {
 	char	tmp[ft_strlen(str) + 8];
 
+	ft_memset(tmp, '\0', ft_strlen(str) + 8);
 	ft_strcat(tmp, "ft_ls: ");
 	ft_strcat(tmp, str);
 	perror(tmp);

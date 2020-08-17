@@ -6,7 +6,7 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 14:09:31 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/18 01:25:46 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/18 02:37:32 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,9 +123,6 @@ char		*ft_get_gname(gid_t id)
 			return (gdb->name);
 	}
 	if (!(res = ft_get_id(&gdb, (unsigned int)id, &ft_new_gid)))
-	{
-		ft_perror(ft_itoa(id));
 		return (NULL);
-	}
 	return (res->name);
 }

@@ -6,7 +6,7 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 23:28:44 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/18 01:13:26 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/18 02:28:07 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,14 @@
 ** OFLAG_* are option bitflags
 ** OFLAG_* bits correspond to the location of their
 ** corresponding char in OFLAGS.
-**
-** OFLAG_MULTIPLE is an internal flag used to determine
-** if a new line should be printed after the first files are listed.
 */
-# define SIX_MA			15768000
+# define YEAR_SEC		31556952
 # define OFLAGS			"Ralrt"
 # define OFLAG_REC		0x01
 # define OFLAG_ALL		0x02
 # define OFLAG_LLONG	0x04
 # define OFLAG_REVERSE	0x08
 # define OFLAG_SORTT	0x10
-# define OFLAG_MULTIPLE	0x20
 
 /*
 ** Typedefs for structures.

@@ -6,7 +6,7 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 11:49:36 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/18 00:45:07 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/18 01:56:15 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int	ft_get_options(int	*dest, int argc, char **argv)
 ** Allocates new strings for each file argument.
 ** Fallbacks to (".") if no file arguments are provided
 */
-static char	**ft_get_names(char **argv, int argc, int *opts)
+static char	**ft_get_names(char **argv, int argc)
 {
 	char	**names;
 	int		i;
@@ -83,8 +83,6 @@ static char	**ft_get_names(char **argv, int argc, int *opts)
 		}
 	}
 	names[i] = NULL;
-	if (i > 1)
-		*opts |= OFLAG_MULTIPLE;
 	return (names);
 }
 
@@ -95,7 +93,8 @@ int			main(int argc, char **argv)
 	char	**names;
 
 	ax = ft_get_options(&opts, argc, argv);
-	names = ft_get_names(argv + ax, argc - ax, &opts);
+	if (!(names = ft_get_names(argv + ax, argc - ax)))
+		return (0);
 	ft_get_entries("", names, opts);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 19:53:51 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/18 00:04:06 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/18 02:36:59 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,13 +105,13 @@ t_entry	*ft_make_entry(char *path, char *name)
 	ft_concat_path(cpath, path, name);
 	if (lstat(cpath, &buf) == -1)
 	{
-		ft_perror(cpath);
+		ft_perror(name);
 		return (NULL);
 	}
 	if (!(entry = ft_create_entry(&buf, name)))
 	{
 		errno = ENOMEM;
-		ft_perror(cpath);
+		ft_perror(name);
 		return (NULL);
 	}
 	return (entry);
