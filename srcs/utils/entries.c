@@ -6,7 +6,7 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 19:53:51 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/16 22:21:23 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/17 02:42:19 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,24 @@ t_entry		*ft_create_entry(struct stat *stat, char *name)
 
 static int	ft_comp_entry(t_entry *a, t_entry *b, int opts)
 {
-	t_entry *tmp;
+	t_entry	*left;
+	t_entry	*right;
 
+	left = a;
+	right = b;
 	if (opts & OFLAG_REVERSE)
 	{
-		tmp = a;
-		a = b;
-		b = tmp;
+		left = b;
+		right = a;
 	}
 	if (opts & OFLAG_SORTT)
-		return (a->time > b->time);
+	{
+		if (a->time == b->time)
+			return (ft_strcmp(b->name, a->name) > 0);
+		return (left->time > right->time);
+	}
 	else
-		return (ft_strcmp(b->name, a->name) > 0);
+		return (ft_strcmp(right->name, left->name) > 0);
 }
 
 t_entry		*ft_add_entry(t_entry *list, t_entry *entry, int opts)

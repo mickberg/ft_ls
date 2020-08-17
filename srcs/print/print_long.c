@@ -6,7 +6,7 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 18:27:05 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/16 19:10:56 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/16 23:05:09 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ static void	ft_print_size(t_entry *entry, t_lengths *lens)
 {
 	if (S_ISCHR(entry->mflags) || S_ISBLK(entry->mflags))
 	{
-		ft_printf(" %*d", lens->major, major(entry->rdev));
+		ft_printf("  %*d", lens->major, major(entry->rdev));
 		ft_printf(", %*d", lens->minor, minor(entry->rdev));
 	}
 	else
-		ft_printf(" %*lld", lens->size, entry->size);
+		ft_printf("  %*lld", lens->size, entry->size);
 }
 
 static void	ft_long_base(t_entry *entry, t_lengths *lens, char *path, int opts)
@@ -42,7 +42,7 @@ static void	ft_long_base(t_entry *entry, t_lengths *lens, char *path, int opts)
 	ft_print_modes(entry, path);
 	ft_printf(" %*d", lens->nlink, entry->nlink);
 	ft_printf(" %-*s", lens->uname, entry->uname);
-	ft_printf(" %-*s", lens->gname, entry->gname);
+	ft_printf("  %-*s", lens->gname, entry->gname);
 	ft_print_size(entry, lens);
 	ft_print_time(entry->time);
 	ft_printf(" %s", entry->name);
