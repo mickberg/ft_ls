@@ -6,26 +6,30 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 19:33:49 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/16 21:47:53 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/18 01:11:26 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static int		ft_get_rows(t_lengths *lens, int numof)
+/*
+** Determine number of rows based on terminal width
+*/
+static int		ft_get_rows(int strlen, int numof)
 {
 	struct winsize	winfo;
 	int				rows;
 	int				cols;
-	int				strlen;
 
-	strlen = lens->name + 1;
 	ioctl(0, TIOCGWINSZ, &winfo);
-	cols = ft_max(1, winfo.ws_col / strlen);
+	cols = ft_max(1, winfo.ws_col / (strlen + 1));
 	rows = numof / cols + !!(numof % cols);
 	return (rows);
 }
 
+/*
+** Get nth entry in list
+*/
 static t_entry	*ft_entry_nth(t_entry *list, int nth)
 {
 	int	i;
@@ -36,16 +40,17 @@ static t_entry	*ft_entry_nth(t_entry *list, int nth)
 	return (list);
 }
 
-void			ft_print_cols(t_entry *list, t_lengths *lens, int numof, int opts)
+/*
+** Prints entries into even colums
+*/
+void			ft_print_cols(t_entry *list, int strlen, int numof)
 {
 	int		rows;
 	int		r;
 	int		c;
 	t_entry	*tmp;
 
-	(void)opts;
-
-	rows = ft_get_rows(lens, numof);
+	rows = ft_get_rows(strlen, numof);
 	r = 0;
 	while (r < rows)
 	{
@@ -53,7 +58,7 @@ void			ft_print_cols(t_entry *list, t_lengths *lens, int numof, int opts)
 		while (c < numof)
 		{
 			tmp = ft_entry_nth(list, c);
-			ft_printf("%-*s", lens->name + 1, tmp->name);
+			ft_printf("%-*s", strlen + 1, tmp->name);
 			c += rows;
 		}
 		ft_printf("\n");

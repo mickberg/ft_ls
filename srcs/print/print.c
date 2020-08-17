@@ -6,7 +6,7 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 19:51:51 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/18 00:42:42 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/18 01:10:05 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,14 @@ void		ft_print_entries(char *path, t_entry *list, int opts)
 		return ;
 	ft_get_lengths(&lens, list, opts);
 	if (opts & OFLAG_LLONG)
-		ft_print_long(list, &lens, path, opts);
+		ft_print_long(list, &lens, path);
 	else
 	{
 		numof = 0;
 		tmp = list;
 		while(tmp && ++numof)
 			tmp = tmp->next;
-		ft_print_cols(list, &lens, numof, opts);
+		ft_print_cols(list, lens.name, numof);
 	}
 }
 

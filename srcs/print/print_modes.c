@@ -6,12 +6,15 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 18:26:55 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/17 19:45:29 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/18 00:48:33 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
+/*
+** Returns appropriate char for file typ.
+*/
 static char	ft_file_type(int mflag)
 {
 	if (S_ISDIR(mflag))
@@ -29,6 +32,9 @@ static char	ft_file_type(int mflag)
 	return ('-');
 }
 
+/*
+** Formats entry permission bitflag to string.
+*/
 static void	ft_comp_permissions(char *modes, int mflag)
 {
 	int	i;
@@ -56,6 +62,10 @@ static void	ft_comp_permissions(char *modes, int mflag)
 	}
 }
 
+/*
+** Prints entry permission modes.
+** Also prints file type and extended attributes.
+*/
 void		ft_print_modes(t_entry *entry, char *path)
 {
 	char	modes[12];

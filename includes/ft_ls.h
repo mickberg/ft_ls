@@ -6,7 +6,7 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 23:28:44 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/18 00:04:20 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/18 01:13:26 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 ** sys/acl.h is for getting Access Control List.
 */
 # include <errno.h>
+# include <unistd.h>
 # include <stdio.h>
 # include <dirent.h>
 # include <time.h>
@@ -44,7 +45,7 @@
 ** OFLAG_MULTIPLE is an internal flag used to determine
 ** if a new line should be printed after the first files are listed.
 */
-# define SIX_MA			15721200
+# define SIX_MA			15768000
 # define OFLAGS			"Ralrt"
 # define OFLAG_REC		0x01
 # define OFLAG_ALL		0x02
@@ -124,9 +125,9 @@ void	ft_concat_path(char *cpath, char *path, char *name);
 */
 void	ft_print_entries(char *path, t_entry *entries, int opts);
 void	ft_print_dir(char *path, t_entry *list, int opts);
-void	ft_print_cols(t_entry *list, t_lengths *lens, int numof, int opts);
+void	ft_print_cols(t_entry *list, int strlen, int numof);
 void	ft_print_modes(t_entry *entry, char *path);
-void	ft_print_long(t_entry *entries, t_lengths *lens, char *path, int opts);
+void	ft_print_long(t_entry *entries, t_lengths *lens, char *path);
 
 /*
 ** Entry manipulation functions.

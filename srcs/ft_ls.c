@@ -6,7 +6,7 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 11:49:36 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/17 20:26:54 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/18 00:45:07 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ static void	print_usage_and_exit(char illegal_opt)
  */
 static int	ft_get_options(int	*dest, int argc, char **argv)
 {
-	int		ax;
-	int		ix;
-	int		fx;
+	int	ax;
+	int	ix;
+	int	fx;
 
 	*dest = 0;
 	ax = 1;
@@ -56,6 +56,10 @@ static int	ft_get_options(int	*dest, int argc, char **argv)
 	return (ax);
 }
 
+/*
+** Allocates new strings for each file argument.
+** Fallbacks to (".") if no file arguments are provided
+*/
 static char	**ft_get_names(char **argv, int argc, int *opts)
 {
 	char	**names;
