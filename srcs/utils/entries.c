@@ -6,7 +6,7 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 19:53:51 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/17 02:42:19 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/17 19:10:18 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,14 @@ t_entry		*ft_create_entry(struct stat *stat, char *name)
 	entry->relative = (!ft_strncmp(name, ".", 2) || !ft_strncmp(name, "..", 3));
 	entry->blocks = stat->st_blocks;
 	entry->time = stat->st_mtimespec.tv_sec;
+	entry->ntime = stat->st_mtimespec.tv_nsec;
 	entry->next = NULL;
 	return (entry);
 }
 
+/**
+ * TODO move to sortes and split time comparison
+ */
 static int	ft_comp_entry(t_entry *a, t_entry *b, int opts)
 {
 	t_entry	*left;
@@ -47,12 +51,15 @@ static int	ft_comp_entry(t_entry *a, t_entry *b, int opts)
 	}
 	if (opts & OFLAG_SORTT)
 	{
-		if (a->time == b->time)
-			return (ft_strcmp(b->name, a->name) > 0);
-		return (left->time > right->time);
+		if (left->time == right->time)
+		{
+			if (left->ntime != right->ntime)
+				return (left->ntime > right->ntime);
+		}
+		else
+			return (left->time > right->time);
 	}
-	else
-		return (ft_strcmp(right->name, left->name) > 0);
+	return (ft_strcmp(right->name, left->name) > 0);
 }
 
 t_entry		*ft_add_entry(t_entry *list, t_entry *entry, int opts)

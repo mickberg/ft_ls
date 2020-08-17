@@ -6,7 +6,7 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 18:26:55 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/16 18:48:25 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/17 19:45:29 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void		ft_print_modes(t_entry *entry, char *path)
 	modes[10] = ' ';
 	if (listxattr(path, NULL, 0, XATTR_NOFOLLOW) > 0)
 		modes[10] = '@';
-	else if ((acl = acl_get_file(path, ACL_TYPE_EXTENDED)) != NULL)
+	else if ((acl = acl_get_link_np(path, ACL_TYPE_EXTENDED)) != NULL)
 	{
 		modes[10] = '+';
 		acl_free(acl);

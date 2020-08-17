@@ -6,7 +6,7 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 20:44:26 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/16 22:22:58 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/17 18:51:50 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ struct					s_entry
 	unsigned short	relative;
 	unsigned int	blocks;
 	time_t			time;
+	time_t			ntime;
 	struct s_entry	*next;
 };
 
