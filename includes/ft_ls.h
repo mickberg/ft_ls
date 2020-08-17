@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/07 11:48:29 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/17 23:12:00 by mikaelber        ###   ########.fr       */
+/*   Created: 2020/08/17 23:28:44 by mikaelber         #+#    #+#             */
+/*   Updated: 2020/08/17 23:35:15 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,13 @@
 
 # include "libft.h"
 
+/*
+** sys/ioctl.h is for detecting terminal width.
+** sys/xattr.h is for getting extended attributes.
+** sys/acl.h is for getting Access Control List.
+*/
 # include <errno.h>
+# include <stdio.h>
 # include <dirent.h>
 # include <time.h>
 # include <grp.h>
@@ -126,7 +132,6 @@ void	ft_print_long(t_entry *entries, t_lengths *lens, char *path, int opts);
 ** Entry manipulation functions.
 */
 t_entry	*ft_make_entry(char *path, char *name);
-t_entry	*ft_create_entry(struct stat *stat, char *name);
 t_entry	*ft_add_entry(t_entry *list, t_entry *entry, int opts);
 void	ft_del_entry(t_entry *entry);
 void	ft_del_entries(t_entry *list);

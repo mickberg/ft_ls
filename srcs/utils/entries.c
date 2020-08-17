@@ -6,62 +6,44 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 19:53:51 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/17 19:10:18 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/17 23:38:55 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-t_entry		*ft_create_entry(struct stat *stat, char *name)
+/*
+** Compares two entries for sorting.
+** Uses opts bitflags to determine which properties to compare.
+*/
+static int		ft_comp_entry(t_entry *a, t_entry *b, int opts)
 {
-	t_entry	*entry;
+	t_entry	*tmp;
 
-	if (!(entry = (t_entry*)malloc(sizeof(t_entry))))
-		return (NULL);
-	ft_memset(entry, 0, sizeof(t_entry));
-	entry->name = name;
-	entry->size = stat->st_size;
-	entry->mflags = stat->st_mode;
-	entry->uid = stat->st_uid;
-	entry->gid = stat->st_gid;
-	entry->nlink = stat->st_nlink;
-	entry->rdev = stat->st_rdev;
-	entry->relative = (!ft_strncmp(name, ".", 2) || !ft_strncmp(name, "..", 3));
-	entry->blocks = stat->st_blocks;
-	entry->time = stat->st_mtimespec.tv_sec;
-	entry->ntime = stat->st_mtimespec.tv_nsec;
-	entry->next = NULL;
-	return (entry);
-}
-
-/**
- * TODO move to sortes and split time comparison
- */
-static int	ft_comp_entry(t_entry *a, t_entry *b, int opts)
-{
-	t_entry	*left;
-	t_entry	*right;
-
-	left = a;
-	right = b;
 	if (opts & OFLAG_REVERSE)
 	{
-		left = b;
-		right = a;
+		tmp = a;
+		a = b;
+		b = tmp;
 	}
 	if (opts & OFLAG_SORTT)
 	{
-		if (left->time == right->time)
+		if (a->time == b->time)
 		{
-			if (left->ntime != right->ntime)
-				return (left->ntime > right->ntime);
+			if (a->ntime != b->ntime)
+				return (a->ntime > b->ntime);
 		}
 		else
-			return (left->time > right->time);
+			return (a->time > b->time);
 	}
-	return (ft_strcmp(right->name, left->name) > 0);
+	return (ft_strcmp(b->name, a->name) > 0);
 }
 
+/*
+** Adds new entry to provided list,
+** Uses the compare function to find correct place in the list.
+** Ensures the list is always properly sorted.
+*/
 t_entry		*ft_add_entry(t_entry *list, t_entry *entry, int opts)
 {
 	t_entry	*prev;
@@ -79,14 +61,41 @@ t_entry		*ft_add_entry(t_entry *list, t_entry *entry, int opts)
 		inv = inv->next;
 	}
 	entry->next = inv;
-	if (prev != NULL)
-	{
-		prev->next = entry;
-		return (list);
-	}
+	if (prev == NULL)
+		return (entry);
+	prev->next = entry;
+	return (list);
+}
+
+/*
+** Initialize entry with base properties from lstat.
+*/
+static t_entry	*ft_create_entry(struct stat *stat, char *name)
+{
+	t_entry	*entry;
+
+	if (!(entry = (t_entry*)malloc(sizeof(t_entry))))
+		return (NULL);
+	ft_memset(entry, 0, sizeof(t_entry));
+	entry->name = name;
+	entry->size = stat->st_size;
+	entry->mflags = stat->st_mode;
+	entry->uid = stat->st_uid;
+	entry->gid = stat->st_gid;
+	entry->nlink = stat->st_nlink;
+	entry->rdev = stat->st_rdev;
+	entry->blocks = stat->st_blocks;
+	entry->time = stat->st_mtimespec.tv_sec;
+	entry->ntime = stat->st_mtimespec.tv_nsec;
+	entry->relative = (!ft_strncmp(name, ".", 2) || !ft_strncmp(name, "..", 3));
+	entry->next = NULL;
 	return (entry);
 }
 
+/*
+** Facade function for initializing a new entry.
+** Fetches lstat properties and call ft_create_entry.
+*/
 t_entry	*ft_make_entry(char *path, char *name)
 {
 	struct stat	buf;
@@ -106,22 +115,4 @@ t_entry	*ft_make_entry(char *path, char *name)
 		return (NULL);
 	}
 	return (entry);
-}
-
-void	ft_del_entry(t_entry *entry)
-{
-	free(entry->name);
-	free(entry);
-}
-
-void	ft_del_entries(t_entry *list)
-{
-	t_entry	*tmp;
-
-	while (list)
-	{
-		tmp = list;
-		list = list->next;
-		ft_del_entry(tmp);
-	}
 }
