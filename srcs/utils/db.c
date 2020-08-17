@@ -6,12 +6,15 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 14:09:31 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/13 21:00:42 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/18 01:25:46 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "ft_ls.h"
 
+/*
+** Create new user id
+*/
 static t_id	*ft_new_uid(unsigned int uid)
 {
 	char			*name;
@@ -31,6 +34,9 @@ static t_id	*ft_new_uid(unsigned int uid)
 	return (id);
 }
 
+/*
+** Create new group id
+*/
 static t_id	*ft_new_gid(unsigned int gid)
 {
 	char			*name;
@@ -38,7 +44,6 @@ static t_id	*ft_new_gid(unsigned int gid)
 	t_id			*id;
 
 	gr = getgrgid(gid);
-
 	if (!gr)
 		name = ft_itoa((gid_t)gid);
 	else
@@ -51,11 +56,16 @@ static t_id	*ft_new_gid(unsigned int gid)
 	return (id);
 }
 
-t_id		*ft_get_id(t_id **list, unsigned int id, t_id* (*f)(unsigned int))
+/*
+** Decorator function for getting id of either user or group
+** Checks the provided id list for id and returns it if found.
+** If not found creates a new one and inserts it in the list in sorted order.
+*/
+static t_id	*ft_get_id(t_id **list, unsigned int id, t_id* (*f)(unsigned int))
 {
-	t_id		*inv;
-	t_id		*prev;
-	t_id		*new;
+	t_id	*inv;
+	t_id	*prev;
+	t_id	*new;
 
 	prev = NULL;
 	inv = *list;
@@ -66,7 +76,6 @@ t_id		*ft_get_id(t_id **list, unsigned int id, t_id* (*f)(unsigned int))
 	}
 	if (inv && inv->id == id)
 		return (inv);
-
 	new = f(id);
 	new->next = inv;
 	if (prev != NULL)
@@ -76,6 +85,10 @@ t_id		*ft_get_id(t_id **list, unsigned int id, t_id* (*f)(unsigned int))
 	return (new);
 }
 
+/*
+** Get User name for specific id
+** or create new one for later use
+*/
 char		*ft_get_uname(uid_t id)
 {
 	static t_id	*udb;
@@ -88,12 +101,15 @@ char		*ft_get_uname(uid_t id)
 		else
 			return (udb->name);
 	}
-
 	if (!(res = ft_get_id(&udb, (unsigned int)id, &ft_new_uid)))
 		return (NULL);
 	return (res->name);
 }
 
+/*
+** Get Group name for specific id
+** or create new one for later use
+*/
 char		*ft_get_gname(gid_t id)
 {
 	static t_id	*gdb;
@@ -106,7 +122,6 @@ char		*ft_get_gname(gid_t id)
 		else
 			return (gdb->name);
 	}
-
 	if (!(res = ft_get_id(&gdb, (unsigned int)id, &ft_new_gid)))
 	{
 		ft_perror(ft_itoa(id));
