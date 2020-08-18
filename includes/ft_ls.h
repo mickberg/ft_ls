@@ -6,7 +6,7 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 23:28:44 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/18 12:59:06 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/18 17:44:10 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct s_id			t_id;
 /*
 ** Structure describing entry properties.
 */
-struct					s_entry
+struct						s_entry
 {
 	char			*name;
 	long long		size;
@@ -82,7 +82,7 @@ struct					s_entry
 ** Keeps max lengths of properties printed in long format.
 ** stored in a struct for easier maintability and further improvements.
 */
-struct					s_lengths
+struct						s_lengths
 {
 	int	nlink;
 	int	uname;
@@ -98,7 +98,7 @@ struct					s_lengths
 ** Used for internal storage to improve performance
 ** by not calling getpwuid and getgrgid for every entry.
 */
-struct					s_id
+struct						s_id
 {
 	unsigned int	id;
 	char			*name;
@@ -108,36 +108,39 @@ struct					s_id
 /*
 ** Main entry point.
 */
-void	ft_get_entries(char *path, char **names, int opts);
+void						ft_get_entries(char *path, char **names, int opts);
 
 /*
 ** Util functions.
 */
-void	ft_perror(char *str);
-void	ft_concat_path(char *cpath, char *path, char *name);
+void						ft_perror(char *str);
+void						ft_concat_path(char *cpath, char *path, char *name);
 
 /*
 ** Print functions.
 */
-void	ft_print_header(char *path, char *name);
-void	ft_print_entries(char *path, t_entry *entries, int opts);
-void	ft_print_dir(char *path, t_entry *list, int opts);
-void	ft_print_cols(t_entry *list, int strlen, int numof);
-void	ft_print_modes(t_entry *entry, char *path);
-void	ft_print_long(t_entry *entries, t_lengths *lens, char *path);
+void						ft_print_header(char *path, char *name);
+void						ft_print_entries(char *path, t_entry *entries, \
+int opts);
+void						ft_print_dir(char *path, t_entry *list, int opts);
+void						ft_print_cols(t_entry *list, int strlen, int numof);
+void						ft_print_modes(t_entry *entry, char *path);
+void						ft_print_long(t_entry *entries, t_lengths *lens, \
+char *path);
 
 /*
 ** Entry manipulation functions.
 */
-t_entry	*ft_make_entry(char *path, char *name);
-t_entry	*ft_add_entry(t_entry *list, t_entry *entry, int opts);
-void	ft_del_entry(t_entry *entry);
-void	ft_del_entries(t_entry *list);
+t_entry						*ft_make_entry(char *path, char *name);
+t_entry						*ft_add_entry(t_entry *list, t_entry *entry, \
+int opts);
+void						ft_del_entry(t_entry *entry);
+void						ft_del_entries(t_entry *list);
 
 /*
 ** Username / Groupname database functions.
 */
-char	*ft_get_uname(uid_t id);
-char	*ft_get_gname(gid_t id);
+char						*ft_get_uname(uid_t id);
+char						*ft_get_gname(gid_t id);
 
 #endif

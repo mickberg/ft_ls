@@ -6,7 +6,7 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 19:51:51 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/18 12:58:09 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/18 17:33:23 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 ** Define max lengths for entry properties to be printed.
 ** For normal format only name length is defined.
 */
+
 static void	ft_get_lengths(t_lengths *lens, t_entry *list, int opts)
 {
 	ft_memset(lens, 0, sizeof(t_lengths));
@@ -46,6 +47,7 @@ static void	ft_get_lengths(t_lengths *lens, t_entry *list, int opts)
 /*
 ** Print header for curernt directory.
 */
+
 void		ft_print_header(char *path, char *name)
 {
 	char	cpath[(ft_strlen(path) + ft_strlen(name) + 2)];
@@ -54,10 +56,10 @@ void		ft_print_header(char *path, char *name)
 	ft_printf("\n%s:\n", cpath);
 }
 
-
 /*
 ** Facade function for printing normal or column format.
 */
+
 void		ft_print_entries(char *path, t_entry *list, int opts)
 {
 	t_lengths	lens;
@@ -73,7 +75,7 @@ void		ft_print_entries(char *path, t_entry *list, int opts)
 	{
 		numof = 0;
 		tmp = list;
-		while(tmp && ++numof)
+		while (tmp && ++numof)
 			tmp = tmp->next;
 		ft_print_cols(list, lens.name, numof);
 	}
@@ -83,6 +85,7 @@ void		ft_print_entries(char *path, t_entry *list, int opts)
 ** Specific function for printing folders.
 ** Sums blocks and prints total blocks in list.
 */
+
 void		ft_print_dir(char *path, t_entry *list, int opts)
 {
 	long long	blocks;

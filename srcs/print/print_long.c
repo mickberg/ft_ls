@@ -6,7 +6,7 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 18:27:05 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/18 02:37:54 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/18 17:39:04 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 ** if time is more or less than 6 month from current.
 ** shows year instead of hour:minute.
 */
+
 static void	ft_print_time(time_t mtime)
 {
 	time_t	cur;
@@ -34,6 +35,7 @@ static void	ft_print_time(time_t mtime)
 ** Prints entry size or minor and major disk ids
 ** for block and char specific files.
 */
+
 static void	ft_print_size(t_entry *entry, t_lengths *lens)
 {
 	if (S_ISCHR(entry->mflags) || S_ISBLK(entry->mflags))
@@ -49,8 +51,11 @@ static void	ft_print_size(t_entry *entry, t_lengths *lens)
 ** Prints basic long format properties
 ** split because of norme.
 */
+
 static void	ft_long_base(t_entry *entry, t_lengths *lens, char *path)
 {
+	char	buf[NAME_MAX + 1];
+
 	ft_print_modes(entry, path);
 	ft_printf(" %*d", lens->nlink, entry->nlink);
 	ft_printf(" %-*s", lens->uname, entry->uname);
@@ -60,7 +65,6 @@ static void	ft_long_base(t_entry *entry, t_lengths *lens, char *path)
 	ft_printf(" %s", entry->name);
 	if (S_ISLNK(entry->mflags))
 	{
-		char buf[NAME_MAX + 1];
 		ft_memset(&buf, '\0', NAME_MAX + 1);
 		readlink(path, buf, NAME_MAX);
 		ft_printf(" -> %s", buf);
@@ -71,6 +75,7 @@ static void	ft_long_base(t_entry *entry, t_lengths *lens, char *path)
 /*
 ** Recursive function for printing entries in long format.
 */
+
 void		ft_print_long(t_entry *entry, t_lengths *lens, char *path)
 {
 	char	*cpath;

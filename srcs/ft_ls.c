@@ -6,16 +6,17 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 11:49:36 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/18 01:56:15 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/18 17:28:02 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "ft_ls.h"
+#include "ft_ls.h"
 
-/**
- * Prints out first illegal option flag then usage with valid flags and exits
- * OFLAGS defines all valid options, defined in ft_ls_types.h
- */
+/*
+** Prints out first illegal option flag then usage with valid flags and exits
+** OFLAGS defines all valid options, defined in ft_ls_types.h
+*/
+
 static void	print_usage_and_exit(char illegal_opt)
 {
 	ft_printf("ft_ls: illegal option -- %c\n", illegal_opt);
@@ -23,14 +24,15 @@ static void	print_usage_and_exit(char illegal_opt)
 	exit(1);
 }
 
-/**
- * Parses option flags, compares any character after an argument which
- * has a - char as its first char to the OFLAGS constant.
- * Anything after the last option argument is considered a file path.
- *
- * Returns number of option arguments.
- */
-static int	ft_get_options(int	*dest, int argc, char **argv)
+/*
+** Parses option flags, compares any character after an argument which
+** has a - char as its first char to the OFLAGS constant.
+** Anything after the last option argument is considered a file path.
+**
+** Returns number of option arguments.
+*/
+
+static int	ft_get_options(int *dest, int argc, char **argv)
 {
 	int	ax;
 	int	ix;
@@ -60,6 +62,7 @@ static int	ft_get_options(int	*dest, int argc, char **argv)
 ** Allocates new strings for each file argument.
 ** Fallbacks to (".") if no file arguments are provided
 */
+
 static char	**ft_get_names(char **argv, int argc)
 {
 	char	**names;

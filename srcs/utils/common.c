@@ -6,7 +6,7 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 18:17:30 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/18 12:29:48 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/18 17:39:37 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 ** Print error string from current errno
 ** along with custom string.
 */
+
 void	ft_perror(char *str)
 {
 	char	tmp[ft_strlen(str) + 8];
@@ -30,6 +31,7 @@ void	ft_perror(char *str)
 ** Concat path with new name into cpath.
 ** cpath must already have sufficiently allocated space.
 */
+
 void	ft_concat_path(char *cpath, char *path, char *name)
 {
 	int	pathlen;
@@ -39,7 +41,7 @@ void	ft_concat_path(char *cpath, char *path, char *name)
 	if (pathlen)
 	{
 		ft_strcat(cpath, path);
-		if (path[pathlen -1] != '/')
+		if (!(pathlen == 1 && path[0] == '/'))
 			ft_strcat(cpath, "/");
 	}
 	ft_strcat(cpath, name);
@@ -48,6 +50,7 @@ void	ft_concat_path(char *cpath, char *path, char *name)
 /*
 ** Free single entry structure.
 */
+
 void	ft_del_entry(t_entry *entry)
 {
 	free(entry->name);
@@ -57,6 +60,7 @@ void	ft_del_entry(t_entry *entry)
 /*
 ** Free a list of entries.
 */
+
 void	ft_del_entries(t_entry *list)
 {
 	t_entry	*tmp;

@@ -6,15 +6,16 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 14:09:31 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/18 02:37:32 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/18 17:41:05 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "ft_ls.h"
+#include "ft_ls.h"
 
 /*
 ** Create new user id
 */
+
 static t_id	*ft_new_uid(unsigned int uid)
 {
 	char			*name;
@@ -37,6 +38,7 @@ static t_id	*ft_new_uid(unsigned int uid)
 /*
 ** Create new group id
 */
+
 static t_id	*ft_new_gid(unsigned int gid)
 {
 	char			*name;
@@ -61,7 +63,8 @@ static t_id	*ft_new_gid(unsigned int gid)
 ** Checks the provided id list for id and returns it if found.
 ** If not found creates a new one and inserts it in the list in sorted order.
 */
-static t_id	*ft_get_id(t_id **list, unsigned int id, t_id* (*f)(unsigned int))
+
+static t_id	*ft_get_id(t_id **list, unsigned int id, t_id *(*f)(unsigned int))
 {
 	t_id	*inv;
 	t_id	*prev;
@@ -89,6 +92,7 @@ static t_id	*ft_get_id(t_id **list, unsigned int id, t_id* (*f)(unsigned int))
 ** Get User name for specific id
 ** or create new one for later use
 */
+
 char		*ft_get_uname(uid_t id)
 {
 	static t_id	*udb;
@@ -110,6 +114,7 @@ char		*ft_get_uname(uid_t id)
 ** Get Group name for specific id
 ** or create new one for later use
 */
+
 char		*ft_get_gname(gid_t id)
 {
 	static t_id	*gdb;

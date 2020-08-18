@@ -6,7 +6,7 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 19:53:51 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/18 02:36:59 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/18 17:40:15 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 ** Compares two entries for sorting.
 ** Uses opts bitflags to determine which properties to compare.
 */
+
 static int		ft_comp_entry(t_entry *a, t_entry *b, int opts)
 {
 	t_entry	*tmp;
@@ -44,7 +45,8 @@ static int		ft_comp_entry(t_entry *a, t_entry *b, int opts)
 ** Uses the compare function to find correct place in the list.
 ** Ensures the list is always properly sorted.
 */
-t_entry		*ft_add_entry(t_entry *list, t_entry *entry, int opts)
+
+t_entry			*ft_add_entry(t_entry *list, t_entry *entry, int opts)
 {
 	t_entry	*prev;
 	t_entry	*inv;
@@ -70,6 +72,7 @@ t_entry		*ft_add_entry(t_entry *list, t_entry *entry, int opts)
 /*
 ** Initialize entry with base properties from lstat.
 */
+
 static t_entry	*ft_create_entry(struct stat *stat, char *name)
 {
 	t_entry	*entry;
@@ -96,7 +99,8 @@ static t_entry	*ft_create_entry(struct stat *stat, char *name)
 ** Facade function for initializing a new entry.
 ** Fetches lstat properties and call ft_create_entry.
 */
-t_entry	*ft_make_entry(char *path, char *name)
+
+t_entry			*ft_make_entry(char *path, char *name)
 {
 	struct stat	buf;
 	t_entry		*entry;

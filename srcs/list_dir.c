@@ -6,7 +6,7 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 18:10:30 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/18 12:58:01 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/18 17:31:52 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Creates a list of entries from files in folder.
 */
+
 static t_entry	*ft_list_dir(char *path, int opts)
 {
 	DIR				*dir;
@@ -47,6 +48,7 @@ static t_entry	*ft_list_dir(char *path, int opts)
 /*
 ** Recursively iterates through folders and prints their entries.
 */
+
 static void		ft_read_dir(char *path, char *name, int opts)
 {
 	char	cpath[(ft_strlen(path) + ft_strlen(name) + 2)];
@@ -71,16 +73,39 @@ static void		ft_read_dir(char *path, char *name, int opts)
 }
 
 /*
+** List dir arguments
+** Split for norme.
+*/
+
+void			ft_list_arg_dirs(t_entry *dirs, char *path, int opts)
+{
+	t_entry	*tmp;
+
+	ft_read_dir(path, dirs->name, opts);
+	tmp = dirs->next;
+	while (tmp)
+	{
+		ft_printf("\n");
+		ft_read_dir(path, dirs->name, opts);
+		dirs = tmp;
+		tmp = tmp->next;
+		ft_del_entry(dirs);
+	}
+}
+
+/*
 ** Entry function, separates files and folder arguments.
 ** then passes the directories to the recursive ft_read_dir func.
 */
+
 void			ft_get_entries(char *path, char **names, int opts)
 {
 	t_entry	*tmp;
 	t_entry	*files;
 	t_entry	*dirs;
 
-	files = dirs = NULL;
+	files = NULL;
+	dirs = NULL;
 	while (*names)
 	{
 		if (!(tmp = ft_make_entry(path, *(names++))))
@@ -91,14 +116,9 @@ void			ft_get_entries(char *path, char **names, int opts)
 			files = ft_add_entry(files, tmp, opts);
 	}
 	ft_print_entries(path, files, opts);
-	tmp = files;
-	while (dirs)
-	{
-		ft_printf("%.*s", !!tmp, "\n");
-		ft_read_dir(path, dirs->name, opts);
-		tmp = dirs;
-		dirs = dirs->next;
-	}
+	if (files && dirs)
+		ft_printf("\n");
 	ft_del_entries(files);
-	ft_del_entries(dirs);
+	if (dirs)
+		ft_list_arg_dirs(dirs, path, opts);
 }

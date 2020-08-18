@@ -6,7 +6,7 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 19:33:49 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/18 01:11:26 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/18 17:33:40 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Determine number of rows based on terminal width
 */
+
 static int		ft_get_rows(int strlen, int numof)
 {
 	struct winsize	winfo;
@@ -30,6 +31,7 @@ static int		ft_get_rows(int strlen, int numof)
 /*
 ** Get nth entry in list
 */
+
 static t_entry	*ft_entry_nth(t_entry *list, int nth)
 {
 	int	i;
@@ -43,6 +45,7 @@ static t_entry	*ft_entry_nth(t_entry *list, int nth)
 /*
 ** Prints entries into even colums
 */
+
 void			ft_print_cols(t_entry *list, int strlen, int numof)
 {
 	int		rows;
