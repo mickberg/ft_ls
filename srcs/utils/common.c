@@ -6,7 +6,7 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 18:17:30 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/18 02:34:39 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/18 12:29:48 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,15 @@ void	ft_perror(char *str)
 */
 void	ft_concat_path(char *cpath, char *path, char *name)
 {
-	ft_memset(cpath, '\0', ft_strlen(path) + ft_strlen(name) + 2);
-	if (ft_strlen(path))
+	int	pathlen;
+
+	pathlen = ft_strlen(path);
+	ft_memset(cpath, '\0', pathlen + ft_strlen(name) + 2);
+	if (pathlen)
 	{
 		ft_strcat(cpath, path);
-		ft_strcat(cpath, "/");
+		if (path[pathlen -1] != '/')
+			ft_strcat(cpath, "/");
 	}
 	ft_strcat(cpath, name);
 }

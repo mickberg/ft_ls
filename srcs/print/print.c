@@ -6,7 +6,7 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 19:51:51 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/18 01:10:05 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/18 12:58:09 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,17 @@ static void	ft_get_lengths(t_lengths *lens, t_entry *list, int opts)
 		lens->name = ft_max(lens->name, ft_strlen(list->name));
 		list = list->next;
 	}
+}
+
+/*
+** Print header for curernt directory.
+*/
+void		ft_print_header(char *path, char *name)
+{
+	char	cpath[(ft_strlen(path) + ft_strlen(name) + 2)];
+
+	ft_concat_path(cpath, path, name);
+	ft_printf("\n%s:\n", cpath);
 }
 
 

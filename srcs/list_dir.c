@@ -6,7 +6,7 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 18:10:30 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/18 00:36:59 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/18 12:58:01 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void		ft_read_dir(char *path, char *name, int opts)
 	{
 		if (opts & OFLAG_REC && S_ISDIR(list->mflags) && !list->relative)
 		{
-			ft_printf("\n%s/%s:\n", cpath, list->name);
+			ft_print_header(cpath, list->name);
 			ft_read_dir(cpath, list->name, opts);
 		}
 		tmp = list;
