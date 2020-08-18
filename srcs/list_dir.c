@@ -6,7 +6,7 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 18:10:30 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/18 17:31:52 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/18 20:50:29 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,19 +77,15 @@ static void		ft_read_dir(char *path, char *name, int opts)
 ** Split for norme.
 */
 
-void			ft_list_arg_dirs(t_entry *dirs, char *path, int opts)
+static void		ft_list_arg_dirs(t_entry *dirs, char *path, int opts, int nl)
 {
-	t_entry	*tmp;
-
-	ft_read_dir(path, dirs->name, opts);
-	tmp = dirs->next;
-	while (tmp)
+	while (dirs)
 	{
-		ft_printf("\n");
+		if (nl)
+			ft_print_header("", dirs->name);
 		ft_read_dir(path, dirs->name, opts);
-		dirs = tmp;
-		tmp = tmp->next;
-		ft_del_entry(dirs);
+		dirs = dirs->next;
+		nl = 1;
 	}
 }
 
@@ -116,9 +112,7 @@ void			ft_get_entries(char *path, char **names, int opts)
 			files = ft_add_entry(files, tmp, opts);
 	}
 	ft_print_entries(path, files, opts);
-	if (files && dirs)
-		ft_printf("\n");
+	ft_list_arg_dirs(dirs, path, opts, !!files);
 	ft_del_entries(files);
-	if (dirs)
-		ft_list_arg_dirs(dirs, path, opts);
+	ft_del_entries(dirs);
 }
