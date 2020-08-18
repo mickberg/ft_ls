@@ -6,7 +6,7 @@
 #    By: mberglun <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/02 17:10:30 by mberglun          #+#    #+#              #
-#    Updated: 2020/02/09 15:37:20 by mikaelber        ###   ########.fr        #
+#    Updated: 2020/08/18 18:34:44 by mikaelber        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ SRC_FILES = ft_strlen.c ft_toupper.c ft_tolower.c ft_strcmp.c ft_strncmp.c ft_ab
 	ft_putnbr.c ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
 	ft_lstnew.c ft_lstdelone.c ft_lstdel.c ft_lstadd.c ft_lstiter.c ft_lstmap.c \
 	ft_pow.c ft_strndup.c ft_min.c ft_max.c ft_sqrt.c \
-	ft_strescape.c ft_strcc.c ft_isspecial.c
+	ft_strcc.c ft_isspecial.c
 # LIBFT header files
 HDR_FILES = libft.h
 

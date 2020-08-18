@@ -6,7 +6,7 @@
 /*   By: mberglun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 17:01:31 by mberglun          #+#    #+#             */
-/*   Updated: 2020/02/09 15:35:26 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/18 18:34:17 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ typedef struct		s_list
 
 char				ft_isspecial(char c);
 int					ft_strcc(const char *str, char c);
-char				*ft_strescape(const char *str);
 long				ft_abs(int nb);
 int					ft_intlen(long long nb);
 char				*ft_strndup(const char *s1, size_t n);
