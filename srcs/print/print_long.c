@@ -6,7 +6,7 @@
 /*   By: mikaelberglund <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 18:27:05 by mikaelber         #+#    #+#             */
-/*   Updated: 2020/08/18 17:39:04 by mikaelber        ###   ########.fr       */
+/*   Updated: 2020/08/18 17:58:54 by mikaelber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*
 ** Prints last modification/access time in clean format.
-** if time is more or less than 6 month from current.
+** if time is more than 6 months from now or in the future
 ** shows year instead of hour:minute.
 */
 
@@ -25,7 +25,7 @@ static void	ft_print_time(time_t mtime)
 
 	timestr = ctime(&(mtime));
 	cur = time(NULL);
-	if ((cur - mtime) > YEAR_SEC / 2 || (cur - mtime) < -(YEAR_SEC / 2))
+	if ((cur - mtime) > YEAR_SEC / 2 || cur < mtime)
 		ft_printf(" %.6s  %.4s", timestr + 4, timestr + 20);
 	else
 		ft_printf(" %.12s", timestr + 4);
